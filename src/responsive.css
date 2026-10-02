@@ -1,0 +1,422 @@
+/* ================================================================
+   LMC — Global Mobile Responsive Overrides
+   Small screens only: ≤768px (tablet) and ≤480px (mobile)
+   Large screens are untouched.
+================================================================ */
+
+/* ── Reset / Base ─────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+img { max-width: 100%; }
+
+/* ================================================================
+   HERO SECTION
+================================================================ */
+@media (max-width: 768px) {
+  /* Don't lock to 100vh on mobile */
+  .hero-viewport-section {
+    height: auto !important;
+    min-height: 100svh !important;
+    padding-bottom: 180px !important;
+  }
+
+  /* Hide desktop nav links */
+  .hero-nav-desktop { display: none !important; }
+
+  /* Stack hero main layout vertically */
+  .hero-main-container {
+    flex-direction: column !important;
+    padding-bottom: 0 !important;
+    padding-top: 0 !important;
+  }
+
+  /* Model layer stacks below text on mobile */
+  .hero-model-layer {
+    position: relative !important;
+    width: 100% !important;
+    height: 320px !important;
+    top: auto !important;
+    right: auto !important;
+    bottom: auto !important;
+    order: 2;
+  }
+
+  /* Left text area */
+  .hero-text-content {
+    padding-left: 20px !important;
+    padding-right: 20px !important;
+    padding-top: 12px !important;
+    max-width: 100% !important;
+  }
+
+  /* Hide vertical sidebar on small screens */
+  .hero-social-sidebar { display: none !important; }
+
+  /* Stats capsule */
+  .hero-stats-capsule {
+    position: static !important;
+    margin: 0 12px 12px !important;
+    padding: 10px 12px !important;
+    border-radius: 14px !important;
+  }
+  .hero-stats-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 10px !important;
+  }
+  .hero-stats-grid > div {
+    border-right: none !important;
+    padding: 6px 10px !important;
+  }
+
+  /* Bottom section padding */
+  #hero > div:last-of-type {
+    padding: 0 12px 12px !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-stats-grid {
+    grid-template-columns: 1fr 1fr !important;
+  }
+  .hero-halo-ring { display: none !important; }
+  .hero-viewport-section {
+    padding-bottom: 140px !important;
+  }
+  .hero-model-layer {
+    height: 260px !important;
+  }
+}
+
+/* ================================================================
+   PORTFOLIO SECTION
+================================================================ */
+@media (max-width: 768px) {
+  #portfolio {
+    padding: 36px 16px 52px !important;
+  }
+  .portfolio-filter-row {
+    gap: 6px !important;
+    flex-wrap: wrap !important;
+    justify-content: center !important;
+  }
+  .portfolio-filter-row button {
+    font-size: 9px !important;
+    padding: 6px 10px !important;
+  }
+  .portfolio-top-row {
+    grid-template-columns: 1fr !important;
+  }
+  .portfolio-top-row > div:first-child {
+    grid-column: span 1 !important;
+  }
+  .portfolio-gallery-grid {
+    grid-template-columns: 1fr 1fr !important;
+    gap: 10px !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .portfolio-gallery-grid {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+/* ================================================================
+   ABOUT SECTION
+================================================================ */
+@media (max-width: 768px) {
+  #about > div {
+    padding: 32px 16px !important;
+  }
+  .about-model-spacer { display: none !important; }
+  .about-content-card {
+    flex: 1 1 100% !important;
+    max-width: 100% !important;
+    background: rgba(255, 245, 248, 0.92) !important;
+    backdrop-filter: blur(16px) !important;
+    -webkit-backdrop-filter: blur(16px) !important;
+    padding: 24px 20px !important;
+    border-radius: 20px !important;
+    margin: 0 !important;
+  }
+  .about-bg-overlay {
+    background: rgba(255, 230, 240, 0.5) !important;
+  }
+  .about-features-grid {
+    grid-template-columns: 1fr 1fr !important;
+    row-gap: 12px !important;
+  }
+  .about-quote-banner {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 10px !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .about-features-grid {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+/* ================================================================
+   PURPOSE SECTION
+================================================================ */
+@media (max-width: 768px) {
+  #purpose > div {
+    padding: 32px 16px !important;
+  }
+  .purpose-model-spacer { display: none !important; }
+  .purpose-content-card {
+    flex: 1 1 100% !important;
+    max-width: 100% !important;
+    background: rgba(255, 245, 248, 0.92) !important;
+    backdrop-filter: blur(16px) !important;
+    -webkit-backdrop-filter: blur(16px) !important;
+    padding: 24px 20px !important;
+    border-radius: 20px !important;
+    margin: 0 !important;
+  }
+  .purpose-bg-overlay {
+    background: rgba(255, 230, 240, 0.5) !important;
+  }
+  .purpose-features-grid {
+    grid-template-columns: 1fr 1fr !important;
+    row-gap: 12px !important;
+  }
+  .purpose-quote-banner {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 12px !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .purpose-features-grid {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+/* ================================================================
+   EXPERIENCE SECTION
+================================================================ */
+@media (max-width: 768px) {
+  #experience {
+    padding: 40px 16px 52px !important;
+  }
+  .experience-cards-grid {
+    grid-template-columns: 1fr 1fr !important;
+    gap: 14px !important;
+  }
+  .experience-bg-model {
+    width: 100% !important;
+    opacity: 0.3 !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .experience-cards-grid {
+    grid-template-columns: 1fr !important;
+    gap: 16px !important;
+  }
+}
+
+/* ================================================================
+   COLLABORATION SECTION
+================================================================ */
+@media (max-width: 768px) {
+  #collab > div {
+    padding: 32px 16px !important;
+  }
+  .collab-model-spacer { display: none !important; }
+  .collab-content-card {
+    flex: 1 1 100% !important;
+    max-width: 100% !important;
+    background: rgba(255, 245, 248, 0.92) !important;
+    backdrop-filter: blur(16px) !important;
+    -webkit-backdrop-filter: blur(16px) !important;
+    padding: 24px 20px !important;
+    border-radius: 20px !important;
+    margin: 0 !important;
+  }
+  .collab-bg-overlay {
+    background: rgba(255, 230, 240, 0.5) !important;
+  }
+  .collab-services-grid {
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 12px !important;
+    max-width: 100% !important;
+  }
+  /* CTA button full width on mobile */
+  .collab-cta-btn {
+    width: 100% !important;
+    justify-content: center !important;
+    font-size: 9.5px !important;
+    letter-spacing: 0.1em !important;
+    padding: 13px 16px !important;
+    white-space: normal !important;
+    text-align: center !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .collab-services-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+}
+
+/* ================================================================
+   PITCH DECK SECTION
+================================================================ */
+@media (max-width: 768px) {
+  #pitch-deck > div {
+    flex-direction: column !important;
+    gap: 28px !important;
+    padding: 36px 16px !important;
+  }
+  .pitch-left-col {
+    flex: 1 1 100% !important;
+    max-width: 100% !important;
+    padding: 0 !important;
+  }
+  .pitch-right-col {
+    flex: 1 1 100% !important;
+    width: 100% !important;
+    min-height: 280px !important;
+  }
+  .pitch-bg-model {
+    width: 90% !important;
+    opacity: 0.45 !important;
+  }
+}
+
+/* ================================================================
+   JOURNAL SECTION
+================================================================ */
+@media (max-width: 768px) {
+  #journal {
+    padding-top: 48px !important;
+    padding-bottom: 52px !important;
+  }
+  #journal .grid {
+    grid-template-columns: 1fr 1fr !important;
+    gap: 16px !important;
+  }
+}
+
+@media (max-width: 480px) {
+  #journal .grid {
+    grid-template-columns: 1fr !important;
+    gap: 18px !important;
+  }
+}
+
+/* ================================================================
+   FAQ SECTION
+================================================================ */
+@media (max-width: 768px) {
+  .faq-grid {
+    grid-template-columns: 1fr !important;
+  }
+  .faq-model-col {
+    height: 320px !important;
+    min-height: 0 !important;
+  }
+  .faq-content-col {
+    padding: 36px 20px 44px !important;
+  }
+  .faq-cta-bar {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 14px !important;
+  }
+}
+
+/* ================================================================
+   TESTIMONIALS SECTION
+================================================================ */
+@media (max-width: 768px) {
+  .testi-grid {
+    grid-template-columns: 1fr !important;
+  }
+  .testi-model-col {
+    height: 340px !important;
+    min-height: 0 !important;
+  }
+  .testi-content-col {
+    padding: 36px 20px 48px !important;
+  }
+  .testi-cards-grid {
+    grid-template-columns: 1fr !important;
+    gap: 12px !important;
+  }
+}
+
+/* ================================================================
+   CONTACT SECTION
+================================================================ */
+@media (max-width: 768px) {
+  #contact {
+    padding-top: 40px !important;
+    padding-bottom: 52px !important;
+  }
+  /* Stack the two columns vertically */
+  #contact > div > div {
+    flex-direction: column !important;
+    gap: 28px !important;
+  }
+  /* Make both columns full width */
+  #contact .contact-info-col,
+  #contact [class*="contact-left"],
+  #contact > div > div > div:first-child {
+    width: 100% !important;
+    max-width: 100% !important;
+    flex: 1 1 100% !important;
+  }
+  #contact > div > div > div:last-child {
+    width: 100% !important;
+    max-width: 100% !important;
+    flex: 1 1 100% !important;
+  }
+}
+
+/* ================================================================
+   FOOTER SECTION
+================================================================ */
+@media (max-width: 768px) {
+  .footer-body {
+    padding: 32px 16px 0 !important;
+  }
+  .footer-grid {
+    grid-template-columns: 1fr !important;
+    gap: 28px !important;
+  }
+  .footer-bottom-bar {
+    justify-content: center !important;
+    text-align: center !important;
+    flex-direction: column !important;
+    gap: 8px !important;
+    padding: 16px 0 !important;
+  }
+  /* Footer banner image height */
+  #footer > div:first-child {
+    height: clamp(200px, 52vw, 340px) !important;
+  }
+}
+
+/* ================================================================
+   GLOBAL HELPERS
+================================================================ */
+/* Prevent horizontal overflow */
+section, footer, header { overflow-x: hidden; }
+
+/* Touch-friendly tap targets */
+@media (max-width: 768px) {
+  button, a { min-height: 36px; }
+}
+
+/* Fluid section headings on small screens */
+@media (max-width: 480px) {
+  h1 { font-size: clamp(36px, 10vw, 58px) !important; }
+  h2 { font-size: clamp(28px, 8vw, 48px) !important; }
+}
