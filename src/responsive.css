@@ -20,8 +20,12 @@ img { max-width: 100%; }
     padding-bottom: 180px !important;
   }
 
-  /* Hide desktop nav links */
+  /* Hide desktop nav links and CTA on mobile */
   .hero-nav-desktop { display: none !important; }
+  .hero-nav-cta-btn { display: none !important; }
+
+  /* Show mobile menu button only on mobile */
+  .hero-mobile-menu-btn { display: flex !important; }
 
   /* Stack hero main layout vertically */
   .hero-main-container {
@@ -404,11 +408,19 @@ img { max-width: 100%; }
   }
 }
 
-/* ================================================================
-   GLOBAL HELPERS
-================================================================ */
-/* Prevent horizontal overflow */
-section, footer, header { overflow-x: hidden; }
+/* Prevent horizontal overflow on sections and footers only (NOT header) */
+section, footer { overflow-x: hidden; }
+
+/* Ensure header is always fully visible and never clipped or shrunk by flexbox */
+header {
+  overflow: visible !important;
+  flex-shrink: 0 !important;
+}
+
+/* Default on Desktop (lg): Hamburger is hidden */
+.hero-mobile-menu-btn {
+  display: none !important;
+}
 
 /* Touch-friendly tap targets */
 @media (max-width: 768px) {

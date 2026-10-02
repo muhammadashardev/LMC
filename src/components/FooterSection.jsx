@@ -1,4 +1,4 @@
-﻿import { useState } from "react";
+import { useState } from "react";
 import { motion } from "framer-motion";
 import footerModelImg from "../assets/faq_model_bg.jpg";
 
@@ -7,9 +7,11 @@ const NAV_LINKS = [
   { label: "Home", href: "#hero" },
   { label: "About", href: "#about" },
   { label: "Portfolio", href: "#portfolio" },
-  { label: "Experience", href: "#experience" },
-  { label: "Journal", href: "#journal" },
-  { label: "Contact", href: "#contact" },
+  { label: "Experience & Services", href: "#experience" },
+  { label: "Pitch Deck", href: "#pitch-deck" },
+  { label: "Editorial Journal", href: "#journal" },
+  { label: "FAQ", href: "#faq" },
+  { label: "Contact & Booking", href: "#contact" },
 ];
 
 /* ── Social SVGs ─────────────────────────────────────────────── */
@@ -140,35 +142,47 @@ export default function FooterSection() {
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            {/* IR Monogram */}
-            <div style={{ marginBottom: "6px", lineHeight: 1 }}>
-              <span
+            {/* LMC Logo & Identity */}
+            <div style={{ display: "flex", alignItems: "center", gap: "14px", marginBottom: "16px" }}>
+              <img
+                src="/lmc_logo.png"
+                alt="LMC Logo"
                 style={{
-                  fontFamily: FONT_SERIF,
-                  fontSize: "64px",
-                  fontWeight: 700,
-                  color: COLOR_CHARCOAL,
-                  letterSpacing: "-0.04em",
-                  lineHeight: 0.85,
+                  height: "56px",
+                  width: "auto",
+                  objectFit: "contain",
                   display: "block",
                 }}
-              >
-                IR
-              </span>
-              <span
-                style={{
-                  fontFamily: FONT_SERIF,
-                  fontSize: "22px",
-                  fontStyle: "italic",
-                  fontWeight: 600,
-                  color: COLOR_ROSE,
-                  display: "block",
-                  letterSpacing: "0.02em",
-                  marginTop: "-4px",
-                }}
-              >
-                Isabella Rose
-              </span>
+              />
+              <div>
+                <span
+                  style={{
+                    fontFamily: FONT_SERIF,
+                    fontSize: "26px",
+                    fontWeight: 700,
+                    color: COLOR_CHARCOAL,
+                    letterSpacing: "0.06em",
+                    lineHeight: 1,
+                    display: "block",
+                  }}
+                >
+                  LMC
+                </span>
+                <span
+                  style={{
+                    fontFamily: FONT_SERIF,
+                    fontSize: "15px",
+                    fontStyle: "italic",
+                    fontWeight: 600,
+                    color: COLOR_ROSE,
+                    display: "block",
+                    letterSpacing: "0.04em",
+                    marginTop: "3px",
+                  }}
+                >
+                  Lumina Model Agency
+                </span>
+              </div>
             </div>
 
             <p

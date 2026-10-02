@@ -5,10 +5,11 @@ import heroModelImg from '../assets/isabella_rose_hero.jpg';
 /* ── Navigation Links ────────────────────────────────────────── */
 const NAV_ITEMS = [
   { label: 'HOME', href: '#hero' },
-  { label: 'PORTFOLIO', href: '#portfolio' },
   { label: 'ABOUT', href: '#about' },
+  { label: 'PORTFOLIO', href: '#portfolio' },
   { label: 'SERVICES', href: '#experience' },
-  { label: 'MEDIA', href: '#journal' },
+  { label: 'PITCH DECK', href: '#pitch-deck' },
+  { label: 'JOURNAL', href: '#journal' },
   { label: 'CONTACT', href: '#contact' },
 ];
 
@@ -239,9 +240,12 @@ export default function HeroSection() {
           zIndex: 50,
           width: '100%',
           maxWidth: '1360px',
-          margin: '18px auto 0',
+          margin: '20px auto 12px',
           padding: '0 28px',
           boxSizing: 'border-box',
+          flex: '0 0 auto',
+          flexShrink: 0,
+          overflow: 'visible',
         }}
       >
         <motion.nav
@@ -252,58 +256,61 @@ export default function HeroSection() {
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'space-between',
-            padding: '11px 28px',
-            borderRadius: '24px',
-            background: 'rgba(255, 255, 255, 0.45)',
+            minHeight: '62px',
+            padding: '10px 24px',
+            borderRadius: '30px',
+            background: 'rgba(255, 255, 255, 0.65)',
             backdropFilter: 'blur(24px)',
             WebkitBackdropFilter: 'blur(24px)',
-            border: '1px solid rgba(255, 255, 255, 0.65)',
-            boxShadow: '0 6px 30px rgba(220, 65, 120, 0.08)',
+            border: '1px solid rgba(255, 255, 255, 0.85)',
+            boxShadow: '0 8px 32px rgba(220, 65, 120, 0.08)',
+            overflow: 'visible',
+            boxSizing: 'border-box',
           }}
         >
-          {/* Brand Logo */}
+          {/* Brand Logo with Project Logo */}
           <a
             href="#hero"
             onClick={(e) => { e.preventDefault(); scrollTo('#hero'); }}
             style={{
               display: 'flex',
               alignItems: 'center',
-              gap: '9px',
+              gap: '12px',
               textDecoration: 'none',
               cursor: 'pointer',
+              flexShrink: 0,
             }}
           >
-            <span
+            <img
+              src="/lmc_logo.png"
+              alt="LMC Logo"
               style={{
-                color: COLOR_ROSE,
-                fontSize: '18px',
-                lineHeight: 1,
-                display: 'inline-flex',
-                filter: 'drop-shadow(0 0 6px rgba(220,65,120,0.3))',
+                height: '42px',
+                width: 'auto',
+                objectFit: 'contain',
+                display: 'block',
               }}
-            >
-              
-            </span>
+            />
             <div style={{ display: 'flex', flexDirection: 'column', lineHeight: 1 }}>
               <span
                 style={{
                   fontFamily: FONT_SERIF,
                   fontWeight: 700,
-                  fontSize: '14.5px',
+                  fontSize: '16px',
                   letterSpacing: '0.18em',
                   color: COLOR_ROSE_DEEP,
                 }}
               >
-                LUMINA
+                LMC
               </span>
               <span
                 style={{
                   fontFamily: FONT_SANS,
                   fontWeight: 600,
                   fontSize: '7.5px',
-                  letterSpacing: '0.28em',
+                  letterSpacing: '0.26em',
                   color: COLOR_ROSE,
-                  marginTop: '2px',
+                  marginTop: '3px',
                 }}
               >
                 MODEL AGENCY
@@ -317,7 +324,7 @@ export default function HeroSection() {
             style={{
               display: 'flex',
               alignItems: 'center',
-              gap: '36px',
+              gap: '30px',
               listStyle: 'none',
               margin: 0,
               padding: 0,
@@ -377,47 +384,51 @@ export default function HeroSection() {
           </ul>
 
           {/* Action Buttons (Right) */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-            {/* Frosted Sparkle Button */}
-            <motion.button
-              whileHover={{ scale: 1.08, borderColor: COLOR_ROSE }}
-              whileTap={{ scale: 0.94 }}
-              onClick={() => scrollTo('#portfolio')}
-              aria-label="Featured Highlights"
+          <div style={{ display: 'flex', alignItems: 'center', gap: '10px', flexShrink: 0 }}>
+            {/* Desktop Quick CTA Link */}
+            <motion.a
+              href="#contact"
+              onClick={(e) => { e.preventDefault(); scrollTo('#contact'); }}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              aria-label="Book Isabella / Contact"
+              className="hero-nav-cta-btn"
               style={{
-                width: '38px',
-                height: '38px',
-                borderRadius: '50%',
-                border: '1.2px solid rgba(220, 65, 120, 0.32)',
-                background: 'rgba(255, 255, 255, 0.45)',
-                color: COLOR_ROSE,
-                fontSize: '14px',
-                cursor: 'pointer',
-                display: 'flex',
+                display: 'inline-flex',
                 alignItems: 'center',
-                justifyContent: 'center',
-                backdropFilter: 'blur(10px)',
-                transition: 'border-color 0.2s',
+                gap: '8px',
+                background: 'linear-gradient(135deg, #e44d80 0%, #cb3266 100%)',
+                color: '#ffffff',
+                fontFamily: FONT_SANS,
+                fontSize: '10.5px',
+                fontWeight: 700,
+                letterSpacing: '0.14em',
+                padding: '9px 18px',
+                borderRadius: '20px',
+                textDecoration: 'none',
+                boxShadow: '0 4px 14px rgba(220, 65, 120, 0.3)',
+                cursor: 'pointer',
               }}
             >
-              ✦
-            </motion.button>
+              <span>BOOK NOW</span>
+              <span style={{ fontSize: '11px' }}>→</span>
+            </motion.a>
 
-            {/* Solid Hot-Pink Hamburger Button */}
+            {/* Solid Hot-Pink Hamburger Button - ONLY ON SM SCREEN */}
             <motion.button
+              className="hero-mobile-menu-btn"
               whileHover={{ scale: 1.08, boxShadow: '0 6px 20px rgba(220, 65, 120, 0.5)' }}
               whileTap={{ scale: 0.94 }}
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               aria-label="Toggle navigation menu"
               style={{
-                width: '38px',
-                height: '38px',
+                width: '40px',
+                height: '40px',
                 borderRadius: '50%',
                 border: 'none',
                 background: 'linear-gradient(135deg, #e44d80 0%, #cb3266 100%)',
                 color: '#ffffff',
                 cursor: 'pointer',
-                display: 'flex',
                 flexDirection: 'column',
                 alignItems: 'center',
                 justifyContent: 'center',
@@ -425,9 +436,9 @@ export default function HeroSection() {
                 boxShadow: '0 4px 18px rgba(220, 65, 120, 0.42)',
               }}
             >
-              <span style={{ width: '15px', height: '1.8px', background: '#fff', borderRadius: '2px', display: 'block' }} />
-              <span style={{ width: '15px', height: '1.8px', background: '#fff', borderRadius: '2px', display: 'block' }} />
-              <span style={{ width: '15px', height: '1.8px', background: '#fff', borderRadius: '2px', display: 'block' }} />
+              <span style={{ width: '16px', height: '2px', background: '#fff', borderRadius: '2px', display: 'block' }} />
+              <span style={{ width: '16px', height: '2px', background: '#fff', borderRadius: '2px', display: 'block' }} />
+              <span style={{ width: '16px', height: '2px', background: '#fff', borderRadius: '2px', display: 'block' }} />
             </motion.button>
           </div>
         </motion.nav>
@@ -940,11 +951,15 @@ export default function HeroSection() {
               {/* Drawer Top */}
               <div>
                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '36px' }}>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                    <span style={{ color: COLOR_ROSE, fontSize: '18px' }}>✦</span>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                    <img
+                      src="/lmc_logo.png"
+                      alt="LMC Logo"
+                      style={{ height: '36px', width: 'auto', objectFit: 'contain' }}
+                    />
                     <div>
-                      <div style={{ fontFamily: FONT_SERIF, fontWeight: 700, fontSize: '15px', letterSpacing: '0.18em', color: COLOR_ROSE_DEEP }}>
-                        LUMINA
+                      <div style={{ fontFamily: FONT_SERIF, fontWeight: 700, fontSize: '16px', letterSpacing: '0.18em', color: COLOR_ROSE_DEEP }}>
+                        LMC
                       </div>
                       <div style={{ fontFamily: FONT_SANS, fontWeight: 600, fontSize: '7.5px', letterSpacing: '0.28em', color: COLOR_ROSE }}>
                         MODEL AGENCY
@@ -1054,7 +1069,16 @@ export default function HeroSection() {
 
       {/* ── Responsive CSS Rules ──────────────────────────────── */}
       <style>{`
+        .hero-mobile-menu-btn {
+          display: none !important;
+        }
         @media (max-width: 992px) {
+          .hero-mobile-menu-btn {
+            display: flex !important;
+          }
+          .hero-nav-cta-btn {
+            display: none !important;
+          }
           .hero-viewport-section {
             height: auto !important;
             min-height: 100vh !important;
