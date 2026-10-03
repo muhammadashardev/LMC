@@ -31,6 +31,14 @@ function App() {
     }
   }, [isLoading])
 
+  const handleLoaderComplete = () => {
+    setIsLoading(false)
+    // Scroll to top (HeroSection) when loader finishes
+    setTimeout(() => {
+      window.scrollTo({ top: 0, behavior: 'smooth' })
+    }, 100)
+  }
+
   return (
     <>
       {/* ── Interactive Stardust Stars Trail & Click Burst across Landing Page ── */}
@@ -41,7 +49,7 @@ function App() {
         {isLoading && (
           <InteractiveLoader
             key="haute-loader"
-            onComplete={() => setIsLoading(false)}
+            onComplete={handleLoaderComplete}
           />
         )}
       </AnimatePresence>
