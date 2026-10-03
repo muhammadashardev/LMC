@@ -1,4 +1,4 @@
-﻿import { motion } from "framer-motion";
+import { motion } from "framer-motion";
 import testimonialModelImg from "../assets/testimonial_model.jpg";
 
 /* ── Testimonials Data ───────────────────────────────────────── */
@@ -42,7 +42,7 @@ function TestimonialCard({ item, delay }) {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.55, delay, ease: [0.22, 1, 0.36, 1] }}
-      whileHover={{ y: -4, boxShadow: "0 18px 48px rgba(220,65,120,0.14)" }}
+      className="testimonial-card"
       style={{
         background: "rgba(255,255,255,0.60)",
         backdropFilter: "blur(18px)",
@@ -53,7 +53,6 @@ function TestimonialCard({ item, delay }) {
         display: "flex",
         flexDirection: "column",
         boxShadow: "0 6px 28px rgba(220,65,120,0.08)",
-        transition: "box-shadow 0.3s",
       }}
     >
       {/* Opening quote mark */}

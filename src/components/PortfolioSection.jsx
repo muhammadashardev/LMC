@@ -311,13 +311,16 @@ export default function PortfolioSection() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.65, delay: 0.1 }}
+            className="port-img-card"
             style={{
+              position: 'relative',
               borderRadius: '16px',
               overflow: 'hidden',
               height: '380px',
               boxShadow: '0 6px 22px rgba(0, 0, 0, 0.05)',
             }}
           >
+            <div className="port-img-sweep" />
             <motion.img
               whileHover={{ scale: 1.04 }}
               transition={{ duration: 0.5, ease: 'easeOut' }}
@@ -338,13 +341,16 @@ export default function PortfolioSection() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.65, delay: 0.18 }}
+            className="port-img-card"
             style={{
+              position: 'relative',
               borderRadius: '16px',
               overflow: 'hidden',
               height: '380px',
               boxShadow: '0 6px 22px rgba(0, 0, 0, 0.05)',
             }}
           >
+            <div className="port-img-sweep" />
             <motion.img
               whileHover={{ scale: 1.04 }}
               transition={{ duration: 0.5, ease: 'easeOut' }}
@@ -374,13 +380,16 @@ export default function PortfolioSection() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.65, delay: 0.24 }}
+              className="port-img-card"
               style={{
+                position: 'relative',
                 borderRadius: '16px',
                 overflow: 'hidden',
                 flex: 1,
                 boxShadow: '0 6px 22px rgba(0, 0, 0, 0.05)',
               }}
             >
+              <div className="port-img-sweep" />
               <motion.img
                 whileHover={{ scale: 1.04 }}
                 transition={{ duration: 0.5, ease: 'easeOut' }}
@@ -401,13 +410,16 @@ export default function PortfolioSection() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.65, delay: 0.3 }}
+              className="port-img-card"
               style={{
+                position: 'relative',
                 borderRadius: '16px',
                 overflow: 'hidden',
                 flex: 1,
                 boxShadow: '0 6px 22px rgba(0, 0, 0, 0.05)',
               }}
             >
+              <div className="port-img-sweep" />
               <motion.img
                 whileHover={{ scale: 1.04 }}
                 transition={{ duration: 0.5, ease: 'easeOut' }}
@@ -429,13 +441,16 @@ export default function PortfolioSection() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.65, delay: 0.36 }}
+            className="port-img-card"
             style={{
+              position: 'relative',
               borderRadius: '16px',
               overflow: 'hidden',
               height: '380px',
               boxShadow: '0 6px 22px rgba(0, 0, 0, 0.05)',
             }}
           >
+            <div className="port-img-sweep" />
             <motion.img
               whileHover={{ scale: 1.04 }}
               transition={{ duration: 0.5, ease: 'easeOut' }}
@@ -456,13 +471,16 @@ export default function PortfolioSection() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.65, delay: 0.42 }}
+            className="port-img-card"
             style={{
+              position: 'relative',
               borderRadius: '16px',
               overflow: 'hidden',
               height: '380px',
               boxShadow: '0 6px 22px rgba(0, 0, 0, 0.05)',
             }}
           >
+            <div className="port-img-sweep" />
             <motion.img
               whileHover={{ scale: 1.04 }}
               transition={{ duration: 0.5, ease: 'easeOut' }}
@@ -481,6 +499,32 @@ export default function PortfolioSection() {
 
       {/* Responsive Styles */}
       <style>{`
+        @keyframes portImgSweep {
+          0%   { transform: translateX(-130%) skewX(-18deg); }
+          100% { transform: translateX(230%) skewX(-18deg); }
+        }
+
+        .port-img-card .port-img-sweep {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 55%;
+          height: 100%;
+          background: linear-gradient(
+            105deg,
+            transparent 20%,
+            rgba(255, 255, 255, 0.45) 50%,
+            transparent 80%
+          );
+          transform: translateX(-130%) skewX(-18deg);
+          pointer-events: none;
+          z-index: 2;
+        }
+
+        .port-img-card:hover .port-img-sweep {
+          animation: portImgSweep 0.6s ease forwards;
+        }
+
         @media (max-width: 1080px) {
           .portfolio-top-row {
             grid-template-columns: 1fr 1fr !important;

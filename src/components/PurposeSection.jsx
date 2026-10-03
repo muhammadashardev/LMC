@@ -91,7 +91,7 @@ export default function PurposeSection() {
       style={{
         position: 'relative',
         width: '100%',
-        minHeight: '100vh',
+        minHeight: '124vh',
         fontFamily: FONT_SANS,
         overflow: 'hidden',
         display: 'flex',

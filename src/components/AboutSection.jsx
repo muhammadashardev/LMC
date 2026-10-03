@@ -88,7 +88,7 @@ export default function AboutSection() {
       style={{
         position: 'relative',
         width: '100%',
-        minHeight: '100vh',
+        minHeight: '130vh',
         fontFamily: FONT_SANS,
         overflow: 'hidden',
         display: 'flex',
@@ -262,12 +262,27 @@ export default function AboutSection() {
               <motion.div
                 key={title}
                 variants={itemVariants}
+                className="about-feature-card"
                 style={{
+                  position: 'relative',
+                  overflow: 'hidden',
                   display: 'flex',
                   gap: '12px',
                   alignItems: 'flex-start',
+                  background: 'rgba(255, 255, 255, 0.38)',
+                  backdropFilter: 'blur(10px)',
+                  WebkitBackdropFilter: 'blur(10px)',
+                  border: '1px solid rgba(255, 255, 255, 0.55)',
+                  borderRadius: '14px',
+                  padding: '14px 16px',
+                  boxShadow: '0 4px 16px rgba(224,90,138,0.10)',
+                  cursor: 'default',
+                  transition: 'box-shadow 0.3s ease, transform 0.3s ease',
                 }}
               >
+                {/* White Sweep Overlay */}
+                <div className="about-card-sweep" />
+
                 {/* Circle Icon Badge */}
                 <div
                   style={{
@@ -277,19 +292,21 @@ export default function AboutSection() {
                     borderRadius: '50%',
                     border: `1.5px solid ${PINK}`,
                     color: PINK,
-                    background: 'rgba(255, 255, 255, 0.45)',
+                    background: 'rgba(255, 255, 255, 0.55)',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
                     marginTop: '2px',
                     boxShadow: '0 2px 6px rgba(224,90,138,0.12)',
+                    position: 'relative',
+                    zIndex: 1,
                   }}
                 >
                   {icon}
                 </div>
 
                 {/* Text Content */}
-                <div>
+                <div style={{ position: 'relative', zIndex: 1 }}>
                   <h4
                     style={{
                       fontFamily: FONT_SANS,
@@ -395,6 +412,37 @@ export default function AboutSection() {
 
       {/* Responsive Styles */}
       <style>{`
+        @keyframes aboutCardSweep {
+          0%   { transform: translateX(-130%) skewX(-18deg); }
+          100% { transform: translateX(230%) skewX(-18deg); }
+        }
+
+        .about-feature-card .about-card-sweep {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 55%;
+          height: 100%;
+          background: linear-gradient(
+            105deg,
+            transparent 20%,
+            rgba(255, 255, 255, 0.55) 50%,
+            transparent 80%
+          );
+          transform: translateX(-130%) skewX(-18deg);
+          pointer-events: none;
+          z-index: 0;
+        }
+
+        .about-feature-card:hover .about-card-sweep {
+          animation: aboutCardSweep 0.6s ease forwards;
+        }
+
+        .about-feature-card:hover {
+          box-shadow: 0 8px 28px rgba(224,90,138,0.22) !important;
+          transform: translateY(-2px);
+        }
+
         @media (max-width: 960px) {
           .about-model-spacer {
             display: none !important;

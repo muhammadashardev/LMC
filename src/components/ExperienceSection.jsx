@@ -261,7 +261,9 @@ export default function ExperienceSection() {
               key={title}
               variants={cardVariants}
               whileHover={{ y: -6, transition: { duration: 0.3 } }}
+              className="exp-highlight-card"
               style={{
+                position: 'relative',
                 borderRadius: '18px',
                 overflow: 'hidden',
                 background: '#ffffff',
@@ -271,6 +273,9 @@ export default function ExperienceSection() {
                 transition: 'box-shadow 0.3s ease',
               }}
             >
+              {/* White Sweep Overlay */}
+              <div className="exp-card-sweep" />
+
               {/* Card Image */}
               <div
                 style={{
@@ -305,6 +310,7 @@ export default function ExperienceSection() {
                   textAlign: 'center',
                   flex: 1,
                   background: 'linear-gradient(180deg, #ffffff 0%, #fff7fa 100%)',
+                  zIndex: 1,
                 }}
               >
                 {/* Floating Circle Badge Icon */}
@@ -376,6 +382,36 @@ export default function ExperienceSection() {
 
       {/* Responsive Styles */}
       <style>{`
+        @keyframes expCardSweep {
+          0%   { transform: translateX(-130%) skewX(-18deg); }
+          100% { transform: translateX(230%) skewX(-18deg); }
+        }
+
+        .exp-highlight-card .exp-card-sweep {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 55%;
+          height: 100%;
+          background: linear-gradient(
+            105deg,
+            transparent 20%,
+            rgba(255, 255, 255, 0.55) 50%,
+            transparent 80%
+          );
+          transform: translateX(-130%) skewX(-18deg);
+          pointer-events: none;
+          z-index: 3;
+        }
+
+        .exp-highlight-card:hover .exp-card-sweep {
+          animation: expCardSweep 0.6s ease forwards;
+        }
+
+        .exp-highlight-card:hover {
+          box-shadow: 0 12px 32px rgba(224, 90, 138, 0.22) !important;
+        }
+
         @media (max-width: 1080px) {
           .experience-cards-grid {
             grid-template-columns: repeat(2, 1fr) !important;

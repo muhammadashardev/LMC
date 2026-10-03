@@ -115,7 +115,7 @@ export default function CollaborationSection() {
       style={{
         position: 'relative',
         width: '100%',
-        minHeight: '100vh',
+        minHeight: '130vh',
         fontFamily: FONT_SANS,
         overflow: 'hidden',
         display: 'flex',

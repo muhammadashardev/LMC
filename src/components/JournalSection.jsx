@@ -281,13 +281,17 @@ export default function JournalSection() {
               variants={cardItemVariants}
               whileHover={{ y: -8, boxShadow: '0 20px 45px -10px rgba(180, 130, 140, 0.22)' }}
               transition={{ duration: 0.35, ease: 'easeOut' }}
-              className="group cursor-pointer rounded-2xl md:rounded-[22px] overflow-hidden flex flex-col justify-between transition-all duration-300"
+              className="group cursor-pointer rounded-2xl md:rounded-[22px] overflow-hidden flex flex-col justify-between transition-all duration-300 journal-card"
               style={{
+                position: 'relative',
                 backgroundColor: 'rgba(252, 243, 241, 0.85)',
                 border: '1px solid rgba(255, 255, 255, 0.85)',
                 boxShadow: '0 12px 36px -10px rgba(180, 130, 140, 0.12)',
               }}
             >
+              {/* White Sweep Overlay */}
+              <div className="journal-card-sweep" />
+
               {/* Card Image Container */}
               <div className="relative w-full aspect-[4/3] sm:aspect-[4/3.2] md:aspect-[4/3.4] overflow-hidden bg-[#ecd3d3]">
                 <img
@@ -313,7 +317,7 @@ export default function JournalSection() {
               </div>
 
               {/* Card Body Text */}
-              <div className="pt-3 pb-6 px-6 text-center flex-1 flex flex-col justify-between items-center">
+              <div className="pt-3 pb-6 px-6 text-center flex-1 flex flex-col justify-between items-center" style={{ position: 'relative', zIndex: 1 }}>
                 <div>
                   <h3
                     style={{
@@ -357,6 +361,34 @@ export default function JournalSection() {
           ))}
         </motion.div>
       </div>
+      {/* Journal Card Sweep CSS */}
+      <style>{`
+        @keyframes journalCardSweep {
+          0%   { transform: translateX(-130%) skewX(-18deg); }
+          100% { transform: translateX(230%) skewX(-18deg); }
+        }
+
+        .journal-card .journal-card-sweep {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 55%;
+          height: 100%;
+          background: linear-gradient(
+            105deg,
+            transparent 20%,
+            rgba(255, 255, 255, 0.5) 50%,
+            transparent 80%
+          );
+          transform: translateX(-130%) skewX(-18deg);
+          pointer-events: none;
+          z-index: 5;
+        }
+
+        .journal-card:hover .journal-card-sweep {
+          animation: journalCardSweep 0.6s ease forwards;
+        }
+      `}</style>
     </section>
   );
 }

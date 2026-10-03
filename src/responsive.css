@@ -438,3 +438,17 @@ header {
   h1 { font-size: clamp(36px, 10vw, 58px) !important; }
   h2 { font-size: clamp(28px, 8vw, 48px) !important; }
 }
+
+/* ================================================================
+   INTERACTIVE PRELOADER RESPONSIVE STYLES
+   ================================================================ */
+@media (max-width: 600px) {
+  .interactive-loader-root {
+    padding: 16px 14px !important;
+  }
+  .interactive-loader-card {
+    padding: 24px 18px 20px 18px !important;
+    border-radius: 18px !important;
+  }
+}
+
