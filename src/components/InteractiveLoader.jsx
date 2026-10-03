@@ -341,21 +341,39 @@ export default function InteractiveLoader({ onComplete }) {
     };
   }, []);
 
+  /* ── Exit / Enter Portfolio Action ───────────────────────────── */
+  const handleFinish = useCallback(() => {
+    if (isExiting) return;
+    setIsExiting(true);
+    soundEngine.playWhoosh();
+
+    setTimeout(() => {
+      if (onComplete) onComplete();
+    }, 700);
+  }, [isExiting, onComplete]);
+
+  const handleFinishRef = useRef(handleFinish);
+  handleFinishRef.current = handleFinish;
+
   /* ── Smooth Progress Counter Simulation ─────────────────────── */
   useEffect(() => {
     let timer;
-    const interval = 28;
+    const interval = 22;
 
     const step = () => {
       if (progressRef.current >= 100) {
         setProgress(100);
         setIsLoaded(true);
+        // Automatically open landing page as soon as loader completes
+        setTimeout(() => {
+          handleFinishRef.current?.();
+        }, 180);
         return;
       }
 
       const increment = accelerationRef.current
-        ? 2.8 + Math.random() * 1.6
-        : 0.65 + Math.random() * 0.85;
+        ? 3.2 + Math.random() * 1.8
+        : 1.1 + Math.random() * 0.9;
 
       progressRef.current = Math.min(100, progressRef.current + increment);
       setProgress(Math.floor(progressRef.current));
@@ -367,17 +385,6 @@ export default function InteractiveLoader({ onComplete }) {
 
     return () => clearTimeout(timer);
   }, []);
-
-  /* ── Exit / Enter Portfolio Action ───────────────────────────── */
-  const handleFinish = () => {
-    if (isExiting) return;
-    setIsExiting(true);
-    soundEngine.playWhoosh();
-
-    setTimeout(() => {
-      if (onComplete) onComplete();
-    }, 1050);
-  };
 
   /* ── Switch Mood Theme ───────────────────────────────────────── */
   const selectMood = (index, e) => {
@@ -506,31 +513,22 @@ export default function InteractiveLoader({ onComplete }) {
               gap: '12px',
             }}
           >
-            {/* Brand Monogram */}
+            {/* Brand Logo with LMC */}
             <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-              <span
+              <img
+                src="/lmc_logo.png"
+                alt="LMC Logo"
                 style={{
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  width: '32px',
-                  height: '32px',
-                  borderRadius: '50%',
-                  border: `1px solid ${currentMood.accent}`,
-                  fontSize: '11px',
-                  letterSpacing: '1px',
-                  fontFamily: "'Bodoni Moda', serif",
-                  color: '#ffffff',
-                  background: 'rgba(255, 255, 255, 0.04)',
-                  boxShadow: `0 0 16px ${currentMood.glow}`,
+                  height: '36px',
+                  width: 'auto',
+                  objectFit: 'contain',
+                  filter: `drop-shadow(0 0 12px ${currentMood.glow})`,
                 }}
-              >
-                IR
-              </span>
+              />
               <div style={{ display: 'flex', flexDirection: 'column' }}>
                 <span
                   style={{
-                    fontSize: '12px',
+                    fontSize: '13px',
                     fontWeight: 700,
                     letterSpacing: '3px',
                     textTransform: 'uppercase',
@@ -538,7 +536,7 @@ export default function InteractiveLoader({ onComplete }) {
                     color: '#ffffff',
                   }}
                 >
-                  LUMINA COUTURE
+                  LMC
                 </span>
                 <span
                   style={{
@@ -549,7 +547,7 @@ export default function InteractiveLoader({ onComplete }) {
                     fontFamily: "'Inter', sans-serif",
                   }}
                 >
-                  Isabella Rose • Melbourne
+                  Lumina Model Agency
                 </span>
               </div>
             </div>
@@ -614,471 +612,197 @@ export default function InteractiveLoader({ onComplete }) {
             </div>
           </header>
 
-          {/* ── CENTER: 3D Holographic Interactive Monogram Card ── */}
+          {/* ── CENTER: Logo & Clean Minimalist Loader (No Card, No Button) ── */}
           <div
             style={{
               position: 'relative',
               zIndex: 10,
-              perspective: '1200px',
               display: 'flex',
               flexDirection: 'column',
               alignItems: 'center',
               justifyContent: 'center',
               margin: 'auto 0',
-              maxWidth: '680px',
+              maxWidth: '480px',
               width: '100%',
-              padding: '0 12px',
+              padding: '0 20px',
+              textAlign: 'center',
             }}
           >
-            {/* The 3D Tilting Editorial Card */}
-            <motion.div
-              className="interactive-loader-card"
+            {/* LMC Logo Crest with Pulsing Circular Rings */}
+            <div
               style={{
-                width: '100%',
-                maxWidth: '520px',
-                background: 'linear-gradient(145deg, rgba(28, 20, 26, 0.76) 0%, rgba(14, 10, 13, 0.9) 100%)',
-                border: '1px solid rgba(255, 255, 255, 0.12)',
-                borderRadius: '24px',
-                padding: '34px 28px 28px 28px',
-                textAlign: 'center',
-                boxShadow: `0 24px 70px rgba(0,0,0,0.65), 0 0 35px ${currentMood.glow}`,
-                backdropFilter: 'blur(20px)',
-                transformStyle: 'preserve-3d',
-                transform: `rotateX(${cardTilt.rx}deg) rotateY(${cardTilt.ry}deg)`,
-                transition: 'transform 0.12s ease-out, box-shadow 0.4s ease',
                 position: 'relative',
-                overflow: 'hidden',
+                width: '120px',
+                height: '120px',
+                margin: '0 auto 24px auto',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
               }}
             >
-              {/* Dynamic Specular Sheen across Card */}
-              <div
+              {/* Rotating Dashed Outer Ring */}
+              <motion.div
+                animate={{ rotate: 360 }}
+                transition={{
+                  repeat: Infinity,
+                  duration: 16,
+                  ease: 'linear',
+                }}
                 style={{
                   position: 'absolute',
-                  inset: 0,
-                  pointerEvents: 'none',
-                  background: `linear-gradient(${115 + cardTilt.ry * 2}deg, transparent 20%, rgba(255, 255, 255, 0.07) 48%, rgba(255, 255, 255, 0.14) 50%, transparent 54%)`,
-                  mixBlendMode: 'overlay',
+                  inset: '-12px',
+                  borderRadius: '50%',
+                  border: '1.5px dashed rgba(255, 255, 255, 0.25)',
                 }}
               />
 
-              {/* Monogram Crest with Pulsing Circular Rings */}
+              {/* Glowing Mood Ring */}
+              <motion.div
+                animate={{
+                  scale: [1, 1.05, 1],
+                  boxShadow: [
+                    `0 0 16px ${currentMood.glow}`,
+                    `0 0 36px ${currentMood.glow}`,
+                    `0 0 16px ${currentMood.glow}`,
+                  ],
+                }}
+                transition={{ repeat: Infinity, duration: 2.2, ease: 'easeInOut' }}
+                style={{
+                  position: 'absolute',
+                  inset: 0,
+                  borderRadius: '50%',
+                  border: `2px solid ${currentMood.accent}`,
+                  background: 'rgba(255, 255, 255, 0.03)',
+                  backdropFilter: 'blur(8px)',
+                }}
+              />
+
+              {/* Center LMC Logo Image */}
+              <motion.img
+                src="/lmc_logo.png"
+                alt="LMC Logo"
+                animate={{
+                  scale: [1, 1.03, 1],
+                }}
+                transition={{ repeat: Infinity, duration: 3, ease: 'easeInOut' }}
+                style={{
+                  width: '68px',
+                  height: '68px',
+                  objectFit: 'contain',
+                  zIndex: 2,
+                  filter: `drop-shadow(0 0 16px ${currentMood.accent})`,
+                }}
+              />
+            </div>
+
+            {/* Title & Brand Name */}
+            <div style={{ marginBottom: '28px' }}>
+              <h1
+                style={{
+                  fontSize: 'clamp(28px, 4.5vw, 42px)',
+                  fontFamily: "'Cormorant Garamond', 'Bodoni Moda', serif",
+                  fontWeight: 500,
+                  letterSpacing: '5px',
+                  textTransform: 'uppercase',
+                  color: '#ffffff',
+                  margin: 0,
+                  lineHeight: 1.1,
+                }}
+              >
+                ISABELLA ROSE
+              </h1>
+              <p
+                style={{
+                  fontSize: '11px',
+                  fontFamily: "'Inter', sans-serif",
+                  letterSpacing: '3px',
+                  color: 'rgba(255, 255, 255, 0.45)',
+                  marginTop: '8px',
+                  marginBottom: 0,
+                  textTransform: 'uppercase',
+                }}
+              >
+                Official Portfolio • Melbourne
+              </p>
+            </div>
+
+            {/* ── Progress Bar & Counter (Clean, no card box) ───────────────────── */}
+            <div style={{ width: '100%', maxWidth: '340px' }}>
               <div
                 style={{
-                  position: 'relative',
-                  width: '88px',
-                  height: '88px',
-                  margin: '0 auto 18px auto',
                   display: 'flex',
+                  justifyContent: 'space-between',
                   alignItems: 'center',
-                  justifyContent: 'center',
+                  marginBottom: '10px',
+                  fontFamily: "'Inter', sans-serif",
                 }}
               >
-                {/* Rotating Dashed Outer Ring */}
-                <motion.div
-                  animate={{ rotate: isAccelerating ? 720 : 360 }}
-                  transition={{
-                    repeat: Infinity,
-                    duration: isAccelerating ? 3.5 : 18,
-                    ease: 'linear',
-                  }}
-                  style={{
-                    position: 'absolute',
-                    inset: '-8px',
-                    borderRadius: '50%',
-                    border: '1px dashed rgba(255, 255, 255, 0.22)',
-                  }}
-                />
-
-                {/* Glowing Mood Ring */}
-                <motion.div
-                  animate={{
-                    scale: isAccelerating ? [1, 1.15, 1] : [1, 1.05, 1],
-                    boxShadow: [
-                      `0 0 10px ${currentMood.glow}`,
-                      `0 0 28px ${currentMood.glow}`,
-                      `0 0 10px ${currentMood.glow}`,
-                    ],
-                  }}
-                  transition={{ repeat: Infinity, duration: 2.4, ease: 'easeInOut' }}
-                  style={{
-                    position: 'absolute',
-                    inset: 0,
-                    borderRadius: '50%',
-                    border: `1.5px solid ${currentMood.accent}`,
-                  }}
-                />
-
-                {/* Center Monogram Initials */}
                 <span
                   style={{
-                    fontFamily: "'Bodoni Moda', 'Playfair Display', serif",
-                    fontSize: '32px',
-                    fontStyle: 'italic',
-                    fontWeight: 700,
-                    letterSpacing: '2px',
-                    color: '#ffffff',
-                    textShadow: `0 0 18px ${currentMood.glow}`,
-                  }}
-                >
-                  IR
-                </span>
-              </div>
-
-              {/* Title & Haute Couture Tag */}
-              <div style={{ marginBottom: '14px' }}>
-                <span
-                  style={{
-                    display: 'inline-block',
                     fontSize: '10px',
-                    letterSpacing: '3.5px',
-                    textTransform: 'uppercase',
-                    color: currentMood.accent,
-                    fontFamily: "'Inter', sans-serif",
+                    letterSpacing: '2.5px',
+                    color: 'rgba(255, 255, 255, 0.55)',
                     fontWeight: 600,
-                    marginBottom: '6px',
-                  }}
-                >
-                  ✦ {currentMood.label} EDITION ✦
-                </span>
-                <h1
-                  style={{
-                    fontSize: 'clamp(26px, 4.5vw, 40px)',
-                    fontFamily: "'Cormorant Garamond', 'Bodoni Moda', serif",
-                    fontWeight: 500,
-                    letterSpacing: '3px',
                     textTransform: 'uppercase',
-                    color: '#ffffff',
-                    margin: 0,
-                    lineHeight: 1.1,
-                  }}
-                >
-                  ISABELLA ROSE
-                </h1>
-                <p
-                  style={{
-                    fontSize: '11px',
-                    fontFamily: "'Inter', sans-serif",
-                    letterSpacing: '2px',
-                    color: 'rgba(255, 255, 255, 0.5)',
-                    marginTop: '5px',
-                    marginBottom: 0,
-                    textTransform: 'uppercase',
-                  }}
-                >
-                  Official Portfolio • Melbourne, AU
-                </p>
-              </div>
-
-              {/* Dynamic Interactive Quote */}
-              <motion.div
-                key={activeMoodIndex}
-                initial={{ opacity: 0, y: 6 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.35 }}
-                style={{
-                  minHeight: '36px',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  marginBottom: '20px',
-                }}
-              >
-                <p
-                  style={{
-                    fontFamily: "'Cormorant Garamond', serif",
-                    fontStyle: 'italic',
-                    fontSize: '15px',
-                    color: 'rgba(255, 255, 255, 0.75)',
-                    margin: 0,
-                    maxWidth: '420px',
-                    lineHeight: 1.4,
-                  }}
-                >
-                  {currentMood.quote}
-                </p>
-              </motion.div>
-
-              {/* ── Progress Bar & Counter ───────────────────── */}
-              <div style={{ width: '100%', marginBottom: '18px' }}>
-                <div
-                  style={{
-                    display: 'flex',
-                    justifyContent: 'space-between',
-                    alignItems: 'flex-end',
-                    marginBottom: '8px',
-                    fontFamily: "'Inter', sans-serif",
-                  }}
-                >
-                  <span
-                    style={{
-                      fontSize: '10px',
-                      letterSpacing: '2px',
-                      color: isAccelerating ? currentMood.accent : 'rgba(255, 255, 255, 0.5)',
-                      fontWeight: 600,
-                      display: 'flex',
-                      alignItems: 'center',
-                      gap: '6px',
-                      transition: 'color 0.2s ease',
-                    }}
-                  >
-                    <span
-                      style={{
-                        display: 'inline-block',
-                        width: '6px',
-                        height: '6px',
-                        borderRadius: '50%',
-                        backgroundColor: isAccelerating ? currentMood.accent : '#50e3c2',
-                        boxShadow: `0 0 8px ${isAccelerating ? currentMood.accent : '#50e3c2'}`,
-                      }}
-                    />
-                    {isLoaded
-                      ? 'EXPERIENCE READY'
-                      : isAccelerating
-                      ? 'BOOSTING SPEED 4X...'
-                      : 'LOADING ASSETS & EDITORIALS'}
-                  </span>
-                  <span
-                    style={{
-                      fontSize: '18px',
-                      fontFamily: "'Bodoni Moda', serif",
-                      fontVariantNumeric: 'tabular-nums',
-                      fontWeight: 700,
-                      color: '#ffffff',
-                      letterSpacing: '1px',
-                    }}
-                  >
-                    {String(progress).padStart(2, '0')}
-                    <span style={{ fontSize: '11px', color: currentMood.accent }}>%</span>
-                  </span>
-                </div>
-
-                {/* Progress Track */}
-                <div
-                  style={{
-                    width: '100%',
-                    height: '5px',
-                    backgroundColor: 'rgba(255, 255, 255, 0.08)',
-                    borderRadius: '4px',
-                    overflow: 'hidden',
-                    position: 'relative',
-                  }}
-                >
-                  <motion.div
-                    style={{
-                      height: '100%',
-                      width: `${progress}%`,
-                      background: `linear-gradient(90deg, #dc4178 0%, ${currentMood.accent} 70%, #ffffff 100%)`,
-                      boxShadow: `0 0 14px ${currentMood.accent}`,
-                      borderRadius: '4px',
-                      transition: 'width 0.06s linear',
-                    }}
-                  />
-                </div>
-              </div>
-
-              {/* ── Interactive CTA or Accelerate Trigger ─────── */}
-              {isLoaded ? (
-                <motion.button
-                  key="enter-btn"
-                  initial={{ opacity: 0, scale: 0.92, y: 8 }}
-                  animate={{ opacity: 1, scale: 1, y: 0 }}
-                  whileHover={{ scale: 1.04 }}
-                  whileTap={{ scale: 0.97 }}
-                  onClick={handleFinish}
-                  className="interactive-clickable"
-                  style={{
-                    width: '100%',
-                    padding: '15px 24px',
-                    background: `linear-gradient(135deg, ${currentMood.accent} 0%, #b83363 100%)`,
-                    border: 'none',
-                    borderRadius: '14px',
-                    color: '#ffffff',
-                    fontFamily: "'Inter', sans-serif",
-                    fontSize: '13px',
-                    fontWeight: 700,
-                    letterSpacing: '3px',
-                    textTransform: 'uppercase',
-                    cursor: 'pointer',
-                    boxShadow: `0 8px 30px ${currentMood.glow}, 0 2px 6px rgba(0,0,0,0.4)`,
                     display: 'flex',
                     alignItems: 'center',
-                    justifyContent: 'center',
-                    gap: '10px',
-                    transition: 'box-shadow 0.3s ease',
+                    gap: '6px',
                   }}
-                >
-                  <span>ENTER PORTFOLIO</span>
-                  <span style={{ fontSize: '15px' }}>✦</span>
-                </motion.button>
-              ) : (
-                <div
-                  onMouseDown={startAcceleration}
-                  onMouseUp={stopAcceleration}
-                  onTouchStart={startAcceleration}
-                  onTouchEnd={stopAcceleration}
-                  className="interactive-clickable"
-                  style={{
-                    width: '100%',
-                    padding: '12px 18px',
-                    background: isAccelerating
-                      ? 'rgba(255, 255, 255, 0.12)'
-                      : 'rgba(255, 255, 255, 0.04)',
-                    border: `1px solid ${
-                      isAccelerating ? currentMood.accent : 'rgba(255, 255, 255, 0.12)'
-                    }`,
-                    borderRadius: '14px',
-                    cursor: 'pointer',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    gap: '10px',
-                    transition: 'all 0.2s ease',
-                    boxShadow: isAccelerating ? `0 0 20px ${currentMood.glow}` : 'none',
-                  }}
-                  title="Press & hold to charge / speed up loading"
                 >
                   <span
                     style={{
                       display: 'inline-block',
-                      animation: isAccelerating ? 'spin 0.6s linear infinite' : 'none',
+                      width: '6px',
+                      height: '6px',
+                      borderRadius: '50%',
+                      backgroundColor: currentMood.accent,
+                      boxShadow: `0 0 8px ${currentMood.accent}`,
                     }}
-                  >
-                    ⚡
-                  </span>
-                  <span
-                    style={{
-                      fontFamily: "'Inter', sans-serif",
-                      fontSize: '11px',
-                      letterSpacing: '2px',
-                      textTransform: 'uppercase',
-                      color: isAccelerating ? '#ffffff' : 'rgba(255, 255, 255, 0.7)',
-                      fontWeight: 600,
-                    }}
-                  >
-                    {isAccelerating ? 'BOOSTING: CHARGING SPEED...' : 'HOLD OR PRESS SPACE TO SPEED UP'}
-                  </span>
-                </div>
-              )}
+                  />
+                  {progress >= 100 ? 'ENTERING...' : 'LOADING...'}
+                </span>
+                <span
+                  style={{
+                    fontSize: '16px',
+                    fontFamily: "'Bodoni Moda', serif",
+                    fontVariantNumeric: 'tabular-nums',
+                    fontWeight: 700,
+                    color: '#ffffff',
+                    letterSpacing: '1px',
+                  }}
+                >
+                  {String(progress).padStart(2, '0')}
+                  <span style={{ fontSize: '11px', color: currentMood.accent }}>%</span>
+                </span>
+              </div>
 
-              {/* Sub hints */}
+              {/* Progress Track */}
               <div
                 style={{
-                  marginTop: '14px',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  flexWrap: 'wrap',
-                  gap: '8px',
-                  fontSize: '9.5px',
-                  letterSpacing: '1.5px',
-                  color: 'rgba(255, 255, 255, 0.35)',
-                  textTransform: 'uppercase',
-                  fontFamily: "'Inter', sans-serif",
+                  width: '100%',
+                  height: '4px',
+                  backgroundColor: 'rgba(255, 255, 255, 0.1)',
+                  borderRadius: '4px',
+                  overflow: 'hidden',
+                  position: 'relative',
                 }}
               >
-                <span>✦ CLICK FOR SPARKLES</span>
-                <span>•</span>
-                <span>MOVE TO TILT 3D ✦</span>
+                <motion.div
+                  style={{
+                    height: '100%',
+                    width: `${progress}%`,
+                    background: `linear-gradient(90deg, #dc4178 0%, ${currentMood.accent} 70%, #ffffff 100%)`,
+                    boxShadow: `0 0 14px ${currentMood.accent}`,
+                    borderRadius: '4px',
+                    transition: 'width 0.05s linear',
+                  }}
+                />
               </div>
-            </motion.div>
+            </div>
           </div>
 
-          {/* ── BOTTOM: Interactive Look Mood Selector ─────────── */}
-          <footer
-            style={{
-              position: 'relative',
-              zIndex: 10,
-              width: '100%',
-              maxWidth: '920px',
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-              gap: '10px',
-              paddingBottom: '4px',
-            }}
-          >
-            <div
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                gap: '8px',
-                fontSize: '10px',
-                letterSpacing: '2.5px',
-                color: 'rgba(255, 255, 255, 0.45)',
-                textTransform: 'uppercase',
-                fontFamily: "'Inter', sans-serif",
-              }}
-            >
-              <span>INTERACTIVE MOOD SELECTOR:</span>
-            </div>
-
-            {/* Look Selector Pills */}
-            <div
-              style={{
-                display: 'flex',
-                flexWrap: 'wrap',
-                justifyContent: 'center',
-                gap: '10px',
-                width: '100%',
-              }}
-            >
-              {MOOD_THEMES.map((mood, idx) => {
-                const isActive = activeMoodIndex === idx;
-                return (
-                  <button
-                    key={mood.id}
-                    type="button"
-                    onClick={(e) => selectMood(idx, e)}
-                    className="interactive-clickable"
-                    style={{
-                      background: isActive
-                        ? 'rgba(255, 255, 255, 0.1)'
-                        : 'rgba(255, 255, 255, 0.03)',
-                      border: `1px solid ${
-                        isActive ? mood.accent : 'rgba(255, 255, 255, 0.1)'
-                      }`,
-                      boxShadow: isActive ? `0 0 16px ${mood.glow}` : 'none',
-                      borderRadius: '30px',
-                      padding: '8px 18px',
-                      color: isActive ? '#ffffff' : 'rgba(255, 255, 255, 0.6)',
-                      cursor: 'pointer',
-                      fontFamily: "'Inter', sans-serif",
-                      fontSize: '11px',
-                      letterSpacing: '2px',
-                      display: 'inline-flex',
-                      alignItems: 'center',
-                      gap: '8px',
-                      transition: 'all 0.25s ease',
-                      backdropFilter: 'blur(8px)',
-                    }}
-                    onMouseEnter={(e) => {
-                      if (!isActive) {
-                        e.currentTarget.style.borderColor = mood.accent;
-                        e.currentTarget.style.color = '#ffffff';
-                      }
-                    }}
-                    onMouseLeave={(e) => {
-                      if (!isActive) {
-                        e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.1)';
-                        e.currentTarget.style.color = 'rgba(255, 255, 255, 0.6)';
-                      }
-                    }}
-                  >
-                    <span
-                      style={{
-                        fontSize: '9px',
-                        fontWeight: 700,
-                        color: mood.accent,
-                      }}
-                    >
-                      {mood.num}
-                    </span>
-                    <span style={{ fontWeight: 600 }}>{mood.label}</span>
-                  </button>
-                );
-              })}
-            </div>
-          </footer>
+          {/* Bottom spacer */}
+          <div style={{ paddingBottom: '20px' }} />
         </motion.div>
       ) : (
         /* ── Dramatic Haute Couture Curtain Reveal Panels ────── */
@@ -1095,7 +819,7 @@ export default function InteractiveLoader({ onComplete }) {
           <motion.div
             initial={{ y: 0 }}
             animate={{ y: '-100%' }}
-            transition={{ duration: 1.0, ease: [0.76, 0, 0.24, 1] }}
+            transition={{ duration: 0.75, ease: [0.76, 0, 0.24, 1] }}
             style={{
               position: 'absolute',
               top: 0,
@@ -1128,7 +852,7 @@ export default function InteractiveLoader({ onComplete }) {
           <motion.div
             initial={{ y: 0 }}
             animate={{ y: '100%' }}
-            transition={{ duration: 1.0, ease: [0.76, 0, 0.24, 1] }}
+            transition={{ duration: 0.75, ease: [0.76, 0, 0.24, 1] }}
             style={{
               position: 'absolute',
               bottom: 0,
